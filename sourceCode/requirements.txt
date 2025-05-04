@@ -1,0 +1,7 @@
+cv2
+numpy
+matplotlib.pyplot
+os
+streamlit
+cv2
+PIL
