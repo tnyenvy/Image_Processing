@@ -38,7 +38,7 @@ def cs_sidebar():
 
 
     # Tùy chọn Chapter với tùy chọn trống mặc định
-    chapters = ["", "Chapter_03", "Chapter_04", "Chapter_09"]
+    chapters = ["", "Chapter_03", "Chapter_04", "Chapter_05", "Chapter_09"]
     selected_chapter = st.sidebar.selectbox("Chọn Chapter:", chapters)
 
     # Xử lý các chức năng tương ứng với Chapter
@@ -74,6 +74,15 @@ def cs_sidebar():
             "Xóa nhiễu Moire"
         ]
         selected_function = st.sidebar.selectbox("Xử lý ảnh trong miền tần số:", functions)
+
+    elif selected_chapter == "Chapter_05":
+        functions = [
+            "",
+            "Tạo nhiễu ảnh",
+            "Lọc ảnh ít nhiễu",
+            "Lọc ảnh nhiều nhiễu"
+        ]
+        selected_function = st.sidebar.selectbox("Xử lý nhiễu ảnh:", functions)
 
     elif selected_chapter == "Chapter_09":
         functions = [

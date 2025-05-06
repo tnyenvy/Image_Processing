@@ -6,9 +6,10 @@ import os
 from sidebar import cs_sidebar
 from error_pages import handle_error
 
-# Import các hàm xử lý từ chapter_03, chapter_04, chapter_09
+# Import các hàm xử lý từ chapter_03, chapter_04, chapter_05, chapter_09
 from chapter_03 import chapter_03_functions
 from chapter_04 import chapter_04_functions
+from chapter_05 import chapter_05_functions
 from chapter_09 import chapter_09_functions
 
 def show_home():
@@ -46,6 +47,11 @@ def main():
                 chapter_04_functions[selected_function]()
             else:
                 show_home()
+        elif selected_chapter == "Chapter_05":
+            if selected_function in chapter_05_functions:
+                chapter_05_functions[selected_function]()
+            else:
+                show_home()
         elif selected_chapter == "Chapter_09":
             if selected_function in chapter_09_functions:
                 chapter_09_functions[selected_function]()
@@ -53,7 +59,7 @@ def main():
                 show_home()
 
     except Exception as e:
-        handle_error(str(e), current_time, current_user)
+        handle_error(str(e))  
 
 if __name__ == "__main__":
     main()

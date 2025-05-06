@@ -1,11 +1,9 @@
 import streamlit as st
 from datetime import datetime
 
-def show_404_page(current_time, current_user):
-    """
-    Hiển thị trang 404 với thiết kế đẹp mắt
-    """
-    # CSS cho trang 404
+def show_404_page():
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
     st.markdown("""
     <style>
     .error-container {
@@ -39,11 +37,6 @@ def show_404_page(current_time, current_user):
         color: #95a5a6;
         margin-top: 20px;
     }
-    .error-user {
-        font-size: 14px;
-        color: #95a5a6;
-        margin-top: 10px;
-    }
     @keyframes pulse {
         0% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -70,7 +63,6 @@ def show_404_page(current_time, current_user):
     </style>
     """, unsafe_allow_html=True)
 
-    # HTML cho trang 404
     st.markdown(f"""
     <div class="error-container">
         <div class="error-code">404</div>
@@ -83,14 +75,10 @@ def show_404_page(current_time, current_user):
         <a href="/" class="home-button">Quay về trang chủ</a>
         <a href="javascript:window.location.reload()" class="home-button">Tải lại trang</a>
         <div class="error-time">Thời gian: {current_time}</div>
-        <div class="error-user">Người dùng: {current_user}</div>
     </div>
     """, unsafe_allow_html=True)
 
-def handle_error(error_message, current_time, current_user):
-    """
-    Xử lý lỗi và hiển thị trang 404
-    """
-    show_404_page(current_time, current_user)
+def handle_error(error_message):
+    show_404_page()
     with st.expander("Chi tiết lỗi", expanded=False):
         st.error(error_message)
