@@ -7,3 +7,5 @@ cv2
 PIL
 datetime
 io
+scipy.ndimage
+scipy.fftpack

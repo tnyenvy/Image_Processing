@@ -825,5 +825,5 @@ chapter_04_functions = {
     "Spectrum": spectrum,
     "Lọc trong miền tần số": frequency_domain_filter,
     "Bộ lọc notch-reject": notch_reject_filter, 
-    "Xóa nhiễu Moire": remove_moire_ui
+    "Xóa nhiễu Moire": remove_moire_ui,
 }
