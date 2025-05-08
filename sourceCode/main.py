@@ -14,6 +14,7 @@ from chapter_09 import chapter_09_functions
 from detection import Detection_functions
 from chapter_07 import chapter_07_functions
 from chapter_11 import chapter_11_functions
+from video_processing import video_blur_background_interface_stream
 
 def show_home():
     """Hiển thị trang Home với thông tin cá nhân và danh sách nội dung."""
@@ -43,6 +44,7 @@ def show_home():
         st.markdown("<p style='font-size:23px;'>🔍 <b>CHƯƠNG 9</b>: Xử lý hình thái học</p>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:23px;'>🔐 <b>CHƯƠNG 11</b>: Ẩn và giải mã ảnh (Steganography)</p>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:23px;'>👁️ <b>NHẬN DIỆN</b>: Nhận diện khuôn mặt, vật thể,...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>🎥 <b>XỬ LÝ VIDEO</b>: Làm mờ nền cho video</p>", unsafe_allow_html=True)
 
 
 def main():
@@ -95,6 +97,9 @@ def main():
                 chapter_11_functions[selected_function]()
             else:
                 show_home()
+
+        elif selected_chapter == "Làm mờ nền trong video":
+            video_blur_background_interface_stream()
 
     except Exception as e:
         handle_error(str(e))  

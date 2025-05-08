@@ -9,3 +9,5 @@ datetime
 io
 scipy.ndimage
 scipy.fftpack
+tempfile
+cv2.xphoto

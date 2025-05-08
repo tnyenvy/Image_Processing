@@ -46,7 +46,8 @@ def cs_sidebar():
     "Chapter_09", 
     "Nhận diện", 
     "Biến ảnh thành tranh vẽ tay", 
-    "Ẩn và giải mã ảnh (Steganography)"
+    "Ẩn và giải mã ảnh (Steganography)",
+    "Làm mờ nền trong video"
     ]
     selected_chapter = st.sidebar.selectbox("Chọn Chapter:", chapters)
 
@@ -122,6 +123,12 @@ def cs_sidebar():
             "",
             "Giấu dữ liệu vào ảnh",
             "Giải mã dữ liệu từ ảnh"
+        ]
+        selected_function = st.sidebar.selectbox("Chọn chức năng:", functions)
+
+    elif selected_chapter == "Làm mờ nền trong video":
+        functions = [
+            "Làm mờ nền trong video"
         ]
         selected_function = st.sidebar.selectbox("Chọn chức năng:", functions)
 
