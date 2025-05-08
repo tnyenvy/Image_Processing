@@ -38,7 +38,7 @@ def cs_sidebar():
 
 
     # Tùy chọn Chapter với tùy chọn trống mặc định
-    chapters = ["", "Chapter_03", "Chapter_04", "Chapter_05", "Chapter_09", "Nhận diện"]
+    chapters = ["", "Chapter_03", "Chapter_04", "Chapter_05", "Chapter_09", "Nhận diện", "Biến ảnh thành tranh vẽ tay"]
     selected_chapter = st.sidebar.selectbox("Chọn Chapter:", chapters)
 
     # Xử lý các chức năng tương ứng với Chapter
@@ -91,7 +91,7 @@ def cs_sidebar():
             "Xử lý thành phần liên thông"
         ]
         selected_function = st.sidebar.selectbox("Xử lý hình thái:", functions)
-        
+
     elif selected_chapter == "Nhận diện":
         functions = [
             "",
@@ -99,6 +99,15 @@ def cs_sidebar():
             "Nhận diện nhân vật"
         ]
         selected_function = st.sidebar.selectbox("Nhận diện trái cây:", functions)
+
+    elif selected_chapter == "Biến ảnh thành tranh vẽ tay":
+        functions = [
+            "",
+            "Vẽ bằng nét chì",
+            "Hiệu ứng hoạt hình"
+        ]
+        selected_function = st.sidebar.selectbox("Hiệu ứng vẽ tay và hoạt hình:", functions)
+
     # Footer
     st.sidebar.markdown("---")
     st.sidebar.markdown(

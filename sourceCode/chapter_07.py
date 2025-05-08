@@ -3,7 +3,7 @@ import numpy as np
 import streamlit as st
 
 def pencil_sketch_effect():
-    st.title("Pencil Sketch Effect")
+    st.title("Vẽ bằng nét chì")
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
     
     if uploaded_file is not None:
@@ -26,11 +26,17 @@ def pencil_sketch_effect():
         # Create the pencil sketch
         sketch = cv2.divide(gray_image, inverted_blurred, scale=256.0)
         
-        # Display the result
-        st.image(sketch, channels="GRAY", caption="Pencil Sketch Effect")
+        # Display the original and processed images side by side
+        col1, col2 = st.columns(2)
+        with col1:
+            st.header("Ảnh gốc")
+            st.image(image, channels="BGR", caption="Ảnh gốc")
+        with col2:
+            st.header("Ảnh sau khi xử lý")
+            st.image(sketch, channels="GRAY", caption="Vẽ bằng nét chì")
 
 def cartoon_effect():
-    st.title("Cartoon Effect")
+    st.title("Hiệu ứng hoạt hình")
     uploaded_file = st.file_uploader("Upload an image", type=["jpg", "png", "jpeg"])
     
     if uploaded_file is not None:
@@ -46,10 +52,16 @@ def cartoon_effect():
         color = cv2.bilateralFilter(image, 9, 250, 250)
         cartoon = cv2.bitwise_and(color, color, mask=edges)
         
-        # Display the result
-        st.image(cartoon, caption="Cartoon Effect")
+        # Display the original and processed images side by side
+        col1, col2 = st.columns(2)
+        with col1:
+            st.header("Ảnh gốc")
+            st.image(image, channels="BGR", caption="Ảnh gốc")
+        with col2:
+            st.header("Hiệu ứng hoạt hình")
+            st.image(cartoon, caption="Vẽ bằng nét chì")
 
 chapter_07_functions = {
-    "Pencil Sketch Effect": pencil_sketch_effect,
-    "Cartoon Effect": cartoon_effect
+    "Vẽ bằng nét chì": pencil_sketch_effect,
+    "Hiệu ứng hoạt hình": cartoon_effect
 }
