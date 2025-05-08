@@ -477,7 +477,7 @@ def notch_reject_filter():
                         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                         filename = f"notch_filtered_{timestamp}.png"
                         save_processed_image(filtered_image, filename)
-                        st.success(f"Đã lưu ảnh tại: {os.path.join(SAVE_PATH_PROCESSED, filename)}")
+                        st.success(f"Đã lưu ảnh tại: {os.path.join('processed', filename)}")
        
         except Exception as e:
             st.error(f"Lỗi khi xử lý ảnh: {str(e)}")
@@ -485,7 +485,6 @@ def notch_reject_filter():
     elif tab_selected == "Vẽ bộ lọc":
         # Sử dụng giao diện riêng cho vẽ bộ lọc
         draw_notch_filter_ui()
-
 
 def CreateNotchRejectFilter(P=250, Q=180, D0=10, n=2, notch_points=None):
     """
@@ -535,7 +534,6 @@ def CreateNotchRejectFilter(P=250, Q=180, D0=10, n=2, notch_points=None):
             
     return H
 
-
 def DrawNotchRejectFilter(H=None, L=128):
     """
     Trực quan hóa bộ lọc Notch-Reject.
@@ -559,7 +557,6 @@ def DrawNotchRejectFilter(H=None, L=128):
     filter_color = cv2.applyColorMap(H_display, cv2.COLORMAP_JET)
     
     return filter_color
-
 
 def draw_notch_filter_ui():
     """UI chuyên biệt cho việc vẽ bộ lọc Notch-Reject."""
@@ -611,8 +608,8 @@ def draw_notch_filter_ui():
             filter_visualization = DrawNotchRejectFilter(H, L)
            
             if filter_visualization is not None:
-                # Hiển thị kết quả
-                st.image(filter_visualization, caption="Bộ lọc Notch-Reject", use_container_width=True)
+                # Hiển thị kết quả với kích thước thu nhỏ
+                st.image(filter_visualization, caption="Bộ lọc Notch-Reject", width=300)
                
                 # Thông tin về các điểm notch
                 st.subheader("Thông tin bộ lọc")
@@ -631,8 +628,7 @@ def draw_notch_filter_ui():
                     timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                     filename = f"notch_filter_{timestamp}.png"
                     save_processed_image(filter_visualization, filename)
-                    st.success(f"Đã lưu bộ lọc tại: {os.path.join(SAVE_PATH_PROCESSED, filename)}")
-
+                    st.success(f"Đã lưu bộ lọc tại: {os.path.join('processed', filename)}")
 
 def apply_notch_reject_filter(img, notch_points, D0, n=2):
     """
@@ -793,11 +789,13 @@ def remove_moire_ui():
             # Hiển thị kết quả
             col1, col2 = st.columns(2)
             with col1:
-                st.image(image, caption="Ảnh gốc", use_container_width=True)
-                st.image(mask * 255, caption="Mặt nạ bộ lọc", use_container_width=True, clamp=True)
+                st.header("Ảnh gốc")
+                st.image(image, caption="Ảnh gốc", width=300)
+                st.image(mask * 255, caption="Mặt nạ bộ lọc", width=300, clamp=True)
             
             with col2:
-                st.image(filtered_image, caption="Ảnh sau khi xóa nhiễu Moire", use_container_width=True)
+                st.header("Ảnh sau khi xóa nhiễu")
+                st.image(filtered_image, caption="Ảnh sau khi xóa nhiễu Moire", width=300)
                 
                 # Phần hiển thị chi tiết phóng to
                 if st.checkbox("Hiển thị phóng to chi tiết"):
@@ -812,8 +810,8 @@ def remove_moire_ui():
                     crop_filtered = filtered_image[center_y-crop_size:center_y+crop_size,
                                                 center_x-crop_size:center_x+crop_size]
                     
-                    st.image(crop_original, caption="Vùng trung tâm ảnh gốc", use_container_width=True)
-                    st.image(crop_filtered, caption="Vùng trung tâm ảnh đã lọc", use_container_width=True)
+                    st.image(crop_original, caption="Vùng trung tâm ảnh gốc", width=300)
+                    st.image(crop_filtered, caption="Vùng trung tâm ảnh đã lọc", width=300)
                     
         except Exception as e:
             st.error(f"Có lỗi xảy ra khi xử lý ảnh: {str(e)}")
