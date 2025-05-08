@@ -34,7 +34,7 @@ def show_home():
     col1, col2 = st.columns(2)
 
     with col1:
-        st.markdown("<p style='font-size:23px;'>🌞 <b>CHƯƠNG 3</b>: Biến đổi độ sáng, tương phản, âm bản, Logarit, lũy thừa,...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>🌞 <b>CHƯƠNG 3</b>: Biến đổi độ sáng, âm bản, Logarit, lũy thừa,...</p>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:23px;'>🎞️ <b>CHƯƠNG 4</b>: Lọc trung bình, lọc Gaussian, lọc trung vị,...</p>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:23px;'>📼 <b>CHƯƠNG 5</b>: Biến đổi Fourier, lọc trong miền tần số,...</p>", unsafe_allow_html=True)
         st.markdown("<p style='font-size:23px;'>🎨 <b>CHƯƠNG 7</b>: Biến ảnh thành tranh vẽ tay</p>", unsafe_allow_html=True)
