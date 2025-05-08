@@ -35,11 +35,11 @@ def XuLyAnh():
         else:
             InsertImage(image_file, list_images_c3[Get_Index_Image()])
         imgin = cv2.imread("./images/ImageProcessing/" + path, cv2.IMREAD_GRAYSCALE)
-            if(image_file is not None):
-        path = image_file.name
-    else:
-        InsertImage(image_file, list_images_c3[Get_Index_Image()])
-    imgin = cv2.imread("./images/ImageProcessing/" + path, cv2.IMREAD_GRAYSCALE)
+        if(image_file is not None):
+            path = image_file.name
+        else:
+            InsertImage(image_file, list_images_c3[Get_Index_Image()])
+            imgin = cv2.imread("./images/ImageProcessing/" + path, cv2.IMREAD_GRAYSCALE)
 
     if(option == '1. Negative Image.'):
         Image_Negative()
@@ -47,7 +47,7 @@ def XuLyAnh():
         Image_Logarit()
     elif(option == '3. Lũy thừa ảnh.'):
         Image_Power()
-    elif(option == '4. Biến đổi tuyến tính từng phần.'):
+    elif(option == '4. Biến đổi tuyến tính từng phần'):
         Image_PiecewiseLinear()
     elif(option == '5. Histogram'):
         Image_Histogram()
@@ -68,3 +68,61 @@ def XuLyAnh():
         Image_Threshold()
     elif(option == '13. Lọc Median'):
         Image_MedianFilter()
+    elif(option == '14. Sharper'):
+        Image_MedianFilter()
+    elif(option == '15. Gradient'):
+        Image_MedianFilter()
+def Image_All():
+    global image_file
+    if Get_XyLyAnh_C3() != '':
+        if image_file is not None:
+            # Mở để xử lý
+            InsertImage(image_file)
+            Chosen_Processing(Get_XyLyAnh_C3())
+        else:
+            Chosen_Processing(Get_XyLyAnh_C3(), list_images_c3[Get_Index_Image()])
+def Image_Negative():
+    output_image = Negative(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_Logarit():
+    output_image = Logarit(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_Power():
+    output_image = Power(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_PiecewiseLinear():
+    output_image = PiecewiseLinear(imgin)
+    c2.image(output_image, caption=None)
+def Image_MyBoxFilter():
+    output_image = MyBoxFilter(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_MedianFilter():
+    output_image = MedianFilter(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_Threshold():
+    output_image = Threshold(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_Sharpen():
+    output_image = Sharpen(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_Gradient():
+    output_image = Gradient(imgin)
+    c2.image(output_image, caption=None)
+
+def Image_onLowpassGauss():
+    # Áp dụng Gaussian Blur
+    output_image = cv2.GaussianBlur(imgin, (43, 43), 7.0)
+    c2.image(output_image, caption=None)
+
+if __name__ == "__main__":
+    configure()
+    cs_sidebar()
+    XuLyAnh()
+    Image_All()
