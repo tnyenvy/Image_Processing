@@ -16,19 +16,39 @@ from chapter_07 import chapter_07_functions
 from chapter_11 import chapter_11_functions
 
 def show_home():
-    """Hiển thị trang Home với thông tin cá nhân."""
-    st.title("Ứng dụng Xử lý Ảnh Số")
-    st.subheader("22110259 - Huỳnh Minh Tuấn")
-    st.subheader("22110274 - Trần Ngọc Yến Vy")
-    st.write("""
-        Chào mừng bạn đến với ứng dụng xử lý ảnh số. 
-        Vui lòng chọn một chức năng từ Sidebar để bắt đầu xử lý!
-    """)
+    """Hiển thị trang Home với thông tin cá nhân và danh sách nội dung."""
+
+    # Tiêu đề chính (cỡ lớn, căn giữa)
+    st.markdown("""
+        <h1 style='text-align: center; font-size: 48px;'>Ứng dụng Xử lý Ảnh Số</h1>
+        <h2 style='text-align: center;'>22110259 - Huỳnh Minh Tuấn</h2>
+        <h2 style='text-align: center;'>22110274 - Trần Ngọc Yến Vy</h2>
+        <hr style='margin-top: 30px; margin-bottom: 30px;'>
+    """, unsafe_allow_html=True)
+
+
+    # Tiêu đề căn giữa
+    st.markdown("<h2 style='text-align: center;'>📌 Danh sách nội dung đã triển khai</h2>", unsafe_allow_html=True)
+
+    # Tạo 2 cột để hiển thị đẹp
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("<p style='font-size:23px;'>🌞 <b>CHƯƠNG 3</b>: Biến đổi độ sáng, tương phản, âm bản, Logarit, lũy thừa,...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>🎞️ <b>CHƯƠNG 4</b>: Lọc trung bình, lọc Gaussian, lọc trung vị,...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>📼 <b>CHƯƠNG 5</b>: Biến đổi Fourier, lọc trong miền tần số,...</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>🎨 <b>CHƯƠNG 7</b>: Biến ảnh thành tranh vẽ tay</p>", unsafe_allow_html=True)
+
+    with col2:
+        st.markdown("<p style='font-size:23px;'>🔍 <b>CHƯƠNG 9</b>: Xử lý hình thái học</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>🔐 <b>CHƯƠNG 11</b>: Ẩn và giải mã ảnh (Steganography)</p>", unsafe_allow_html=True)
+        st.markdown("<p style='font-size:23px;'>👁️ <b>NHẬN DIỆN</b>: Nhận diện khuôn mặt, vật thể,...</p>", unsafe_allow_html=True)
+
 
 def main():
     try:
         st.set_page_config(
-            page_title="Ứng dụng Xử lý Ảnh Số",
+            page_title="Xử lý Ảnh Số",
             page_icon="🖼️",
             layout="wide"
         )
