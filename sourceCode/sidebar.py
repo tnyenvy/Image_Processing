@@ -113,9 +113,9 @@ def cs_sidebar():
         functions = [
             "",
             "Vẽ bằng nét chì",
-            "Hiệu ứng hoạt hình"
+            "Hiệu ứng tranh sơn dầu"
         ]
-        selected_function = st.sidebar.selectbox("Hiệu ứng vẽ tay và hoạt hình:", functions)
+        selected_function = st.sidebar.selectbox("Hiệu ứng vẽ tay và sơn dầu:", functions)
 
     elif selected_chapter == "Ẩn và giải mã ảnh (Steganography)":
         functions = [
