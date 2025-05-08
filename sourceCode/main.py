@@ -13,6 +13,7 @@ from chapter_05 import chapter_05_functions
 from chapter_09 import chapter_09_functions
 from detection import Detection_functions
 from chapter_07 import chapter_07_functions
+from chapter_11 import chapter_11_functions
 
 def show_home():
     """Hiển thị trang Home với thông tin cá nhân."""
@@ -69,6 +70,12 @@ def main():
                 chapter_07_functions[selected_function]()
             else:
                 show_home()
+        elif selected_chapter == "Ẩn và giải mã ảnh (Steganography)":
+            if selected_function in chapter_11_functions:
+                chapter_11_functions[selected_function]()
+            else:
+                show_home()
+
     except Exception as e:
         handle_error(str(e))  
 

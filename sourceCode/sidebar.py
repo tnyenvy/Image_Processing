@@ -38,7 +38,16 @@ def cs_sidebar():
 
 
     # Tùy chọn Chapter với tùy chọn trống mặc định
-    chapters = ["", "Chapter_03", "Chapter_04", "Chapter_05", "Chapter_09", "Nhận diện", "Biến ảnh thành tranh vẽ tay"]
+    chapters = [
+    "", 
+    "Chapter_03", 
+    "Chapter_04", 
+    "Chapter_05", 
+    "Chapter_09", 
+    "Nhận diện", 
+    "Biến ảnh thành tranh vẽ tay", 
+    "Ẩn và giải mã ảnh (Steganography)"
+    ]
     selected_chapter = st.sidebar.selectbox("Chọn Chapter:", chapters)
 
     # Xử lý các chức năng tương ứng với Chapter
@@ -107,6 +116,14 @@ def cs_sidebar():
             "Hiệu ứng hoạt hình"
         ]
         selected_function = st.sidebar.selectbox("Hiệu ứng vẽ tay và hoạt hình:", functions)
+
+    elif selected_chapter == "Ẩn và giải mã ảnh (Steganography)":
+        functions = [
+            "",
+            "Giấu dữ liệu vào ảnh",
+            "Giải mã dữ liệu từ ảnh"
+        ]
+        selected_function = st.sidebar.selectbox("Chọn chức năng:", functions)
 
     # Footer
     st.sidebar.markdown("---")
