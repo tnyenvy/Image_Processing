@@ -333,8 +333,44 @@ def bien_doi_tuyen_tinh():
         display_images(original_path, processed_path)
 
 # 5. Histogram
+def Logarit(imgin):
+    M, N = imgin.shape
+    imgout = np.zeros((M, N), np.uint8)
+    c = (L-1)/np.log(L)
+    for x in range(0, M):
+        for y in range(0, N):
+            r = imgin[x, y]
+            if r == 0:
+                r = 1
+            s = c*np.log(1.0 + r)
+            imgout[x, y] = np.uint8(s)
+    return imgout
+
+def LogaritColor(imgin):
+    M, N, C = imgin.shape
+    imgout = np.zeros((M, N, C), np.uint8)
+    c = (L-1)/np.log(L)
+    for x in range(0, M):
+        for y in range(0, N):
+            r = imgin[x, y, 2]
+            g = imgin[x, y, 1]
+            b = imgin[x, y, 0]  # OpenCV uses BGR
+            if r == 0:
+                r = 1
+            if g == 0:
+                g = 1
+            if b == 0:
+                b = 1
+            r = c*np.log(1.0 + r)
+            g = c*np.log(1.0 + g)
+            b = c*np.log(1.0 + b)
+            imgout[x, y, 2] = np.uint8(r)
+            imgout[x, y, 1] = np.uint8(g)
+            imgout[x, y, 0] = np.uint8(b)
+    return imgout
+
 def histogram():
-    """Hiển thị biểu đồ histogram của ảnh."""
+    """Xử lý ảnh để làm nổi bật các thành phần bị ẩn."""
     st.subheader("Tải lên ảnh của bạn hoặc sử dụng ảnh mặc định")
     uploaded_file = st.file_uploader("Chọn ảnh", type=['png', 'jpg', 'jpeg'], key="histogram")
     
@@ -345,14 +381,29 @@ def histogram():
         img = InsertImage(None, "5. Histogram.png")
     
     if img is None:
+        st.error("Không thể đọc ảnh. Vui lòng thử lại.")
         return
     
-    # Chuyển sang grayscale nếu là ảnh màu
-    if img.ndim == 3:
-        img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-        
+    # Xử lý ảnh để làm nổi bật chi tiết ẩn
+    if img.ndim == 3:  # Ảnh màu
+        img_processed = LogaritColor(img)
+    else:  # Ảnh grayscale
+        img_processed = Logarit(img)
+    
+    # Hiển thị ảnh gốc và ảnh đã xử lý
+    st.header("Kết quả xử lý ảnh")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.image(img, caption="Ảnh Gốc", width=400)
+    with col2:
+        st.image(img_processed, caption="Ảnh sau khi xử lý (Logarit)", width=400)
+    
+    # Hiển thị histogram của ảnh đã xử lý (nếu cần)
+    st.subheader("Histogram của ảnh đã xử lý")
+    if img_processed.ndim == 3:
         # Vẽ histogram cho từng kênh màu
-        fig, axs = plt.subplots(2, 2, figsize=(12, 10))
+        fig, axs = plt.subplots(2, 2, figsize=(6, 4))  # Thu nhỏ biểu đồ
+        img_gray = cv2.cvtColor(img_processed, cv2.COLOR_BGR2GRAY)
         
         # Histogram cho ảnh grayscale
         axs[0, 0].hist(img_gray.ravel(), 256, [0, 256], color='black')
@@ -361,19 +412,19 @@ def histogram():
         axs[0, 0].set_ylabel('Số lượng pixel')
         
         # Histogram cho kênh đỏ
-        axs[0, 1].hist(img[:, :, 0].ravel(), 256, [0, 256], color='red')
+        axs[0, 1].hist(img_processed[:, :, 2].ravel(), 256, [0, 256], color='red')
         axs[0, 1].set_title('Red Channel Histogram')
         axs[0, 1].set_xlabel('Giá trị pixel')
         axs[0, 1].set_ylabel('Số lượng pixel')
         
         # Histogram cho kênh xanh lá
-        axs[1, 0].hist(img[:, :, 1].ravel(), 256, [0, 256], color='green')
+        axs[1, 0].hist(img_processed[:, :, 1].ravel(), 256, [0, 256], color='green')
         axs[1, 0].set_title('Green Channel Histogram')
         axs[1, 0].set_xlabel('Giá trị pixel')
         axs[1, 0].set_ylabel('Số lượng pixel')
         
         # Histogram cho kênh xanh dương
-        axs[1, 1].hist(img[:, :, 2].ravel(), 256, [0, 256], color='blue')
+        axs[1, 1].hist(img_processed[:, :, 0].ravel(), 256, [0, 256], color='blue')
         axs[1, 1].set_title('Blue Channel Histogram')
         axs[1, 1].set_xlabel('Giá trị pixel')
         axs[1, 1].set_ylabel('Số lượng pixel')
@@ -381,21 +432,13 @@ def histogram():
         plt.tight_layout()
     else:
         # Vẽ histogram cho ảnh grayscale
-        fig, ax = plt.subplots(figsize=(10, 6))
-        ax.hist(img.ravel(), 256, [0, 256], color='black')
+        fig, ax = plt.subplots(figsize=(5, 2))  # Thu nhỏ biểu đồ
+        ax.hist(img_processed.ravel(), 256, [0, 256], color='black')
         ax.set_title('Grayscale Histogram')
         ax.set_xlabel('Giá trị pixel')
         ax.set_ylabel('Số lượng pixel')
     
-    # Hiển thị biểu đồ histogram
     st.pyplot(fig)
-    
-    # Hiển thị ảnh gốc
-    if uploaded_file is not None:
-        st.image(img, caption="Ảnh Gốc", use_container_width=True)
-    else:
-        original_path = os.path.join(SAVE_PATH_ORIGINAL, "5. Histogram.png")
-        st.image(original_path, caption="Ảnh Gốc", use_container_width=True)
 
 # 6. Histogram Equalization
 def can_bang_histogram():
@@ -627,6 +670,14 @@ def thong_ke_histogram():
     if img is None:
         return
     
+    # Hiển thị ảnh gốc trước
+    st.header("Ảnh Gốc")
+    if uploaded_file is not None:
+        st.image(img, caption="Ảnh Gốc", width=400)
+    else:
+        original_path = os.path.join(SAVE_PATH_ORIGINAL, "9. ThongKeHistogram.png")
+        st.image(original_path, caption="Ảnh Gốc", width=400)
+    
     # Chuyển sang grayscale nếu là ảnh màu
     if img.ndim == 3:
         img_gray = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
@@ -635,7 +686,7 @@ def thong_ke_histogram():
         channels = cv2.split(img)
         channel_names = ['Red', 'Green', 'Blue']
         
-        st.subheader("Thống kê cho từng kênh màu")
+        st.subheader("Thống kê và Histogram cho từng kênh màu")
         for i, (channel, name) in enumerate(zip(channels, channel_names)):
             mean_val = np.mean(channel)
             median_val = np.median(channel)
@@ -651,7 +702,7 @@ def thong_ke_histogram():
             st.write(f"- Giá trị lớn nhất: {max_val}")
             
             # Vẽ histogram
-            fig, ax = plt.subplots(figsize=(10, 4))
+            fig, ax = plt.subplots(figsize=(5, 2))  # Thu nhỏ biểu đồ
             ax.hist(channel.ravel(), 256, [0, 256], color=name.lower())
             ax.set_title(f'Histogram kênh {name}')
             ax.set_xlabel('Giá trị pixel')
@@ -665,7 +716,7 @@ def thong_ke_histogram():
         min_val = np.min(img)
         max_val = np.max(img)
         
-        st.subheader("Thống kê cho ảnh grayscale")
+        st.subheader("Thống kê và Histogram cho ảnh grayscale")
         st.write(f"- Giá trị trung bình: {mean_val:.2f}")
         st.write(f"- Giá trị trung vị: {median_val:.2f}")
         st.write(f"- Độ lệch chuẩn: {std_val:.2f}")
@@ -673,19 +724,12 @@ def thong_ke_histogram():
         st.write(f"- Giá trị lớn nhất: {max_val}")
         
         # Vẽ histogram
-        fig, ax = plt.subplots(figsize=(10, 4))
+        fig, ax = plt.subplots(figsize=(5, 2))  # Thu nhỏ biểu đồ
         ax.hist(img.ravel(), 256, [0, 256], color='gray')
         ax.set_title('Histogram ảnh grayscale')
         ax.set_xlabel('Giá trị pixel')
         ax.set_ylabel('Số lượng pixel')
         st.pyplot(fig)
-    
-    # Hiển thị ảnh gốc
-    if uploaded_file is not None:
-        st.image(img, caption="Ảnh Gốc", use_container_width=True)
-    else:
-        original_path = os.path.join(SAVE_PATH_ORIGINAL, "9. ThongKeHistogram.png")
-        st.image(original_path, caption="Ảnh Gốc", use_container_width=True)
 
 # 10. Box Filter
 def loc_box():
