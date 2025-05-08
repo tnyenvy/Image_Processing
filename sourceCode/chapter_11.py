@@ -217,7 +217,7 @@ def steganography_decode():
             except Exception as e:
                 st.error(f"Lỗi khi giải mã: {str(e)}")
         else:
-            st.warning("Vui lòng tải ảnh chứa dữ liệu.")
+            st.warning("Vui lòng tải ảnh chứa dữ liệu.")  
 
 chapter_11_functions = {
     "Giấu dữ liệu vào ảnh": steganography_encode,
